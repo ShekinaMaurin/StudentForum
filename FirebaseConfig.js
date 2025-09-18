@@ -1,19 +1,21 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDavfHwMTl5WdDOz5zUvgAKR1AryqXj75Y",
-  authDomain: "studentforum-9fa63.firebaseapp.com",
-  projectId: "studentforum-9fa63",
-  storageBucket: "studentforum-9fa63.firebasestorage.app",
-  messagingSenderId: "263794848209",
-  appId: "1:263794848209:web:c042b6d5e3d5ac783f30f0"
+  apiKey: "AIzaSyAKkSZf6ziWZ27FSPpgSAE4jEzEo4tXROw",
+  authDomain: "studentforums-46998.firebaseapp.com",
+  projectId: "studentforums-46998",
+  storageBucket: "studentforums-46998.firebasestorage.app",
+  messagingSenderId: "179823711737",
+  appId: "1:179823711737:web:b6b1713d88b8bea0531928"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app)
+
+// ✅ Initialize services
+export const auth = getAuth(app);
+export const db = getFirestore(app);

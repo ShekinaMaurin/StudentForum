@@ -1,38 +1,36 @@
-import { Link } from 'expo-router'
-import { View, Text, StyleSheet } from 'react-native'
+import { useEffect, useState } from "react";
+import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, Text, InteractionManager } from "react-native";
 
-const Home = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        M Y  G O A L S
-      </Text>
-      <Link style={styles.link} href="/goals">
-        View Your Goals
-      </Link>
-      <Link style={styles.link} href="/goals/create">
-        Add a New Goal
-      </Link>
-    </View>
-  )
+export default function Index() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const token = await AsyncStorage.getItem("userToken");
+
+      // 👇 wait until navigation system is ready
+      InteractionManager.runAfterInteractions(() => {
+        if (token) {
+          router.replace("/home");    // must match app/home.jsx
+        } else {
+          router.replace("/landing"); // must match app/landing.jsx
+        }
+        setLoading(false);
+      });
+    };
+    checkLogin();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  return null;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  title: {
-    marginVertical: 40,
-    fontSize: 28,
-  },
-  link: {
-    marginVertical: 20,
-    padding: 16,
-    backgroundColor: '#21cc8d',
-    color: 'white',
-    borderRadius: 8,
-  },
-})
-
-export default Home
